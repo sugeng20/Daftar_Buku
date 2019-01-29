@@ -1,1 +1,281 @@
-<h1>Ini Adalah Daftar Buku</h1>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Icon -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous">
+
+  <title>Aplikasi Buku</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-book"></i>
+        Aplikasi Buku
+      </a>
+    </div>
+  </nav>
+
+  <div class="container" id="app">
+    <div class="row mt-3">
+      <div class="col text-center">
+        <h2>Daftar Buku</h2>
+      </div>
+    </div>
+
+
+    <div class="row mt-3 mb-3">
+      <div class="col">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahBuku">
+          <i class="fas fa-plus-square"></i> Tambah Buku Baru
+        </button>
+
+        <!-- Modal Tambah Buku-->
+        <div class="modal fade" id="tambahBuku" tabindex="-1" role="dialog" aria-labelledby="tambahBukuLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="tambahBukuLabel">Tambah Buku Baru</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="judul_buku">Judul Buku</label>
+                        <input type="text" class="form-control" id="judul_buku" v-model="jb" required="required">
+                        <small class="form-text text-danger" v-for="err in errors">{{err.jb}}</small>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="pengarang">Pengarang</label>
+                        <input type="text" class="form-control" id="pengarang" v-model="pg">
+                        <small class="form-text text-danger" v-for="err in errors">{{err.pg}}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="penerbit">Penerbit</label>
+                        <input type="text" class="form-control" id="penerbit" v-model="pt" required="required">
+                        <small class="form-text text-danger" v-for="err in errors">{{err.pt}}</small>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="jumlah_halaman">jumlah halaman</label>
+                        <input type="text" class="form-control" id="jumlah_halaman" v-model="jh" required="required">
+                        <small class="form-text text-danger" v-for="err in errors">{{err.jh}}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="tahun_terbit">tahun terbit</label>
+                        <input type="text" class="form-control" id="tahun_terbit" v-model="tt" required="required">
+                        <small class="form-text text-danger" v-for="err in errors">{{err.tt}}</small>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="harga">Harga</label>
+                        <input type="text" class="form-control" id="harga" v-model="hg" required>
+                        <small class="form-text text-danger" v-for="err in errors">{{err.hg}}</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label for="deskripsi">Deskripsi</label> <br>
+                      <textarea name="deskrips" id="deskripsi" cols="60" rows="5" v-model="ds" required></textarea>
+                      <small class="form-text text-danger" v-for="err in errors">{{err.ds}}</small>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary" v-on:click="tambahBuku()">Tambah
+                  Buku</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Update Buku -->
+    <div class="modal fade" id="updateBuku" tabindex="-1" role="dialog" aria-labelledby="updateBukuLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateBukuLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="judul_buku">Judul Buku</label>
+                  <input type="text" class="form-control" id="judul_buku" v-model="array.judul_buku">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="pengarang">Pengarang</label>
+                  <input type="text" class="form-control" id="pengarang" v-model="array.pengarang">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="penerbit">Penerbit</label>
+                  <input type="text" class="form-control" id="penerbit" v-model="array.penerbit">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="jumlah_halaman">jumlah halaman</label>
+                  <input type="text" class="form-control" id="jumlah_halaman" v-model="array.jumlah_halaman">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="tahun_terbit">tahun terbit</label>
+                  <input type="text" class="form-control" id="tahun_terbit" v-model="array.tahun_terbit">
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="harga">Harga</label>
+                  <input type="text" class="form-control" id="harga" v-model="array.harga" data-a-sign="Rp. "
+                    data-a-dec="," data-a-sep=".">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="deskripsi">Deskripsi</label> <br>
+                <textarea name="deskrips" id="deskripsi" cols="60" rows="5" v-model="array.deskripsi"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            <button type="button" class="btn btn-primary" v-on:click="updateBuku" data-dismiss="modal">Update Buku</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Detail Buku -->
+    <div class="modal fade" id="detailBuku" tabindex="-1" role="dialog" aria-labelledby="detailBukuLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="detailBukuLabel">detail Buku {{array.judul_buku}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4>{{array.judul_buku}}</h4>
+            <div class="row">
+              <div class="col-4">
+                <h6>Pengarang</h6>
+                <h6>penerbit</h6>
+                <h6>jumlah halaman</h6>
+                <h6>tahun terbit</h6>
+                <h6>harga</h6>
+                <h6>deskripsi</h6>
+              </div>
+              <div class="col">
+                <h6>: {{array.pengarang}}</h6>
+                <h6>: {{array.penerbit }}</h6>
+                <h6>: {{array.jumlah_halaman}} Halaman</h6>
+                <h6>: {{array.tahun_terbit }}</h6>
+                <h6>: Rp. {{formatPrice(array.harga)}},-</h6>
+                <h6>: {{array.deskripsi }}</h6>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card-columns">
+          <div class="card" style="width: 20rem;" v-for="book in books">
+            <div class="card-body">
+              <h5 class="card-title">{{book.judul_buku}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted" id="rupiah">{{book.pengarang}}</h6>
+              <p class="card-text">{{book.deskripsi}}</p>
+              <p class="card-text">Rp. {{ formatPrice(book.harga) }},-</p>
+
+              <a href="#" class="badge badge-success" v-on:click="ubahBuku(book)" data-toggle="modal" data-target="#detailBuku"><i
+                  class="fas fa-info-circle"></i>
+                detail</a>
+
+              <a href="#" class="badge badge-primary" v-on:click="ubahBuku(book)" data-toggle="modal" data-target="#updateBuku"><i
+                  class="fas fa-pencil-alt"></i>
+                ubah</a>
+              <a href="#" class="badge badge-danger" id="oke" v-on:click="hapusBuku(book)"><i class="fas fa-trash-alt"></i>
+                hapus</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="js/autoNumeric.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
