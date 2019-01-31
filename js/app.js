@@ -15,7 +15,8 @@ new Vue({
     hg: "",
     ds: "",
     array: {},
-    errors: []
+    errors: [],
+    searchTerms: ""
   },
   methods: {
     tambahBuku() {
@@ -136,5 +137,21 @@ new Vue({
       this.books = res.data
     })
     console.log(this.books.harga)
+  },
+  computed: {
+    // Computed property untuk menyimpan produk-produk yang sesuai dengan searchTermss
+    filteredBooks: function () {
+      var terms = this.searchTerms.trim().toLowerCase();
+
+      if (!this.searchTerms.length) {
+        return this.books;
+      }
+
+      return this.books.filter(function (product) {
+        if (product.judul_buku.toLowerCase().indexOf(terms) !== -1) {
+          return product;
+        }
+      });
+    }
   }
 })
