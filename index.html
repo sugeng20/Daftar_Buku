@@ -27,7 +27,7 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-dark bg-primary">
+  <nav class="navbar navbar-dark bg-primary fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">
         <i class="fas fa-book"></i>
@@ -143,7 +143,8 @@
                     <div class="col">
                       <div class="form-group">
                         <label for="harga">Harga</label>
-                        <input type="text" class="form-control" id="harga" v-model="hg" required>
+                        <input type="text" class="form-control" id="harga" v-model="hg" autocomplete="off">
+                        <small class="form-text text-success">Rp. {{formatPrice(hg)}},-</small>
                         <small class="form-text text-danger" v-for="err in errors">{{err.hg}}</small>
                       </div>
                     </div>
@@ -151,7 +152,7 @@
                   <div class="row">
                     <div class="col">
                       <label for="deskripsi">Deskripsi</label> <br>
-                      <textarea name="deskrips" id="deskripsi" cols="60" rows="5" v-model="ds" required></textarea>
+                      <textarea name="deskrips" id="deskripsi" cols="60" rows="5" v-model="ds"></textarea>
                       <small class="form-text text-danger" v-for="err in errors">{{err.ds}}</small>
                     </div>
                   </div>
@@ -218,8 +219,8 @@
               <div class="col">
                 <div class="form-group">
                   <label for="harga">Harga</label>
-                  <input type="text" class="form-control" id="harga" v-model="array.harga" data-a-sign="Rp. "
-                    data-a-dec="," data-a-sep=".">
+                  <input type="text" class="form-control" id="harga" v-model="array.harga" autocomplete="off">
+                  <small class="form-text text-success">Rp. {{formatPrice(array.harga)}},-</small>
                 </div>
               </div>
             </div>
@@ -281,7 +282,7 @@
       <div class="row">
         <div class="col">
           <div class="card-columns">
-            <div class="card" style="width: 20rem;" v-for="book in filteredBooks">
+            <div class="card" style="width: 22rem;" v-for="book in filteredBooks">
               <div class="card-body">
                 <h5 class="card-title">{{book.judul_buku}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted" id="rupiah">{{book.pengarang}}</h6>
